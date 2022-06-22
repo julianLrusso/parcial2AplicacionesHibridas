@@ -1,0 +1,36 @@
+Proyecto: Vamos a hacer un foro para opinar sobre videojuegos, donde cada usuario pueda ingresar y dejar su comentario/reseña del mismo y su puntuación.
+
+Usuarios:{
+	_id:,
+	nombre:'andres',
+	type:'admin',
+}
+
+juego:{
+	_id:,
+	name:'valorant',
+	puntuacion:3,
+	descripcion:'Se basa en cagarte a tiros con el otro equipo y tratar de ganar la mayor cantidad de rondas posibles',
+	categoria:{
+		_id:,
+		nombre:shooter,
+}
+
+comentario:{
+	_id:,
+	usuario:{
+		_id:,
+		nombre:andres,
+	},
+	texto:'Esta muy bueno',
+	juego: {
+	_id:,
+	}
+	puntuacion:5,
+}
+
+categoria:{
+	_id:,
+	nombre:shoter,
+}
+
