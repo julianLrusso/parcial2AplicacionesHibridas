@@ -110,6 +110,21 @@ function createUser (req, res) {
     })
 }
 
+function createCategory(req, res) {
+  const data = {
+    nombre: req.body.nombre,
+  }
+  const table = 'categorias'
+
+  projectModelDB.create(data, table)
+      .then(function (data) {
+        res.status(201).json(data)
+      })
+      .catch(function (err) {
+        res.status(500).json({ err })
+      })
+}
+
 function remove (req, res) {
   const table = req.params.table
   const id = req.params.id
@@ -150,6 +165,24 @@ function updateGame (req, res) {
     .catch(function (err) {
       res.status(500).json({ err })
     })
+}
+
+function updateCategory (req, res) {
+  const table = 'categorias'
+  const id = req.body.id;
+  const data = req.body.nombre;
+
+  projectModelDB.update(id, table, data)
+      .then(function (data) {
+        if (data) {
+          res.status(200).json(data)
+        } else {
+          res.status(404).json({ message: `Category #${id} cannot be found` })
+        }
+      })
+      .catch(function (err) {
+        res.status(500).json({ err })
+      })
 }
 
 function updateUser (req, res) {
@@ -199,8 +232,10 @@ export default {
   createGame,
   createUser,
   createComentario,
+  createCategory,
   remove,
   updateGame,
   updateUser,
+  updateCategory,
   updateComentario
 }

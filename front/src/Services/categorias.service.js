@@ -1,14 +1,16 @@
 async function find(){
-    return JSON.parse(localStorage.getItem('categorias')) || [];
+    return fetch('http://localhost:2052/categorias')
+        .then(response => response.json());
 }
 
 async function create(categoria){
-    const categorias = JSON.parse(localStorage.getItem('categorias')) || [];
-    const newCategoria = {...categoria, id: categorias.length +1}
-    categorias.push(newCategoria);
-    localStorage.setItem('categorias', JSON.stringify(categorias));
-
-    return newCategoria;
+    return fetch('http://localhost:2022/create/categoria', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(categoria)
+    }) .then(response => response.json());
 }
 
 export {

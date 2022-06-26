@@ -10,8 +10,9 @@ async function find (table, params) {
       client.close()
       return videojuegos
     })
-    .catch(function () {
+    .catch(function (e) {
       console.log('No me pude conectar')
+        return e;
     })
 }
 
@@ -20,14 +21,15 @@ async function create (data, table) {
     .then(async function () {
       console.log('Me pude conectar')
       const db = client.db('videojuegos')
-      db.collection(table).insertOne(data, function (err, res) {
+      await db.collection(table).insertOne(data, function (err, res) {
         if (err) throw err
         console.log('Se puedo guardar')
         client.close()
       })
     })
-    .catch(function () {
+    .catch(function (e) {
       console.log('No me pude conectar')
+        return e;
     })
 }
 
@@ -36,23 +38,27 @@ async function deleteOne (id, table) {
     .then(async function () {
       console.log('Me pude conectar')
       const db = client.db('videojuegos')
-      await db.collection(table).deleteOne({ _id: new ObjectId(id) })
+      const response = await db.collection(table).deleteOne({ _id: new ObjectId(id) })
       client.close()
+        return response;
     })
-    .catch(function () {
+    .catch(function (e) {
       console.log('No me pude conectar')
+        return e;
     })
 }
 async function update (id, table, data) {
   return client.connect()
     .then(async function () {
-      console.log('Me pude conectar')
-      const db = client.db('videojuegos')
-      await db.collection(table).updateOne({ _id: new ObjectId(id) }, { $set: { data } })
-      client.close()
+      console.log('Me pude conectar');
+      const db = client.db('videojuegos');
+      const response = await db.collection(table).updateOne({ _id: new ObjectId(id) }, { $set: { data } })
+      client.close();
+      return response;
     })
-    .catch(function () {
-      console.log('No me pude conectar')
+    .catch(function (e) {
+      console.log('No me pude conectar');
+      return e;
     })
 }
 
