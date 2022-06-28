@@ -50,12 +50,15 @@ async function create (data, table) {
   return client.connect()
     .then(async function () {
       console.log('Me pude conectar')
-      const db = client.db('videojuegos')
-      await db.collection(table).insertOne(data, function (err, res) {
-        if (err) throw err
-        console.log('Se pudo guardar')
-        client.close()
-      })
+      const db = client.db('videojuegos');
+      const categoriaCreada = await db.collection(table).insertOne(data);
+      client.close();
+      return categoriaCreada
+      // await db.collection(table).insertOne(data, function (err, res) {
+      //   if (err) throw err
+      //   console.log('Se pudo guardar')
+      //   client.close()
+      // })
     })
     .catch(function (e) {
       console.log('No me pude conectar')

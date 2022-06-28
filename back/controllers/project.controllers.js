@@ -4,9 +4,12 @@ import * as projectModelDB from '../services/project.db.service.js'
 function getAll (req, res) {
   const table = req.params.table
   projectModelDB.find(table)
-    .then(data => res.status(200).json(data))
-    .catch( err => res.status(404).json({ err })
-    )
+    .then(function (data) {
+      res.status(200).json(data)
+    })
+    .catch(function (err) {
+      res.status(404).json({ err })
+    })
 }
 
 function createGame (req, res) {
@@ -28,15 +31,14 @@ function createGame (req, res) {
     .catch(function (err) {
       res.status(500).json({ err })
     })
-  }
-  
-  function createComentario (req, res) {
-    const id = req.body.idJuego
-    const table = 'comentarios'
-    const data = {
-      usuario: {
-        _id: ObjectId(req.body.idUsuario),
-        nombre: req.body.nombreUsuario
+}
+
+function createComentario (req, res) {
+  const id = req.body.idJuego
+  const data = {
+    usuario: {
+      _id: ObjectId(req.body.idUsuario),
+      nombre: req.body.nombreUsuario
     },
     texto: req.body.texto,
     juego: {
@@ -44,6 +46,7 @@ function createGame (req, res) {
     },
     puntuacion: req.body.puntuacion
   }
+  const table = 'comentarios'
 
   projectModelDB.create(data, table)
     .then(function (data) {
@@ -53,10 +56,16 @@ function createGame (req, res) {
       res.status(500).json({ err })
     })
 
-  console.log("estamos acá")
-  
-  projectModelDB.findCommentByGame(id)
-    .then(data => res.status(200).json(data))
+  const params = {
+    juego: {
+      _id: new ObjectId(id)
+    }
+  }
+
+  projectModelDB.find(table, params)
+    .then(function (data) {
+      res.status(201).json(data)
+    })
     .then(function (data) {
       let puntos = 0
       for (let i = 0; i < data.length; i++) {
@@ -68,7 +77,7 @@ function createGame (req, res) {
         puntuacion: puntosTotal
       }
 
-      projectModelDB.update(id, juegos, puntosData)
+      projectModelDB.update(id, table, puntosData)
         .then(function (data) {
           if (data) {
             res.status(200).json(data)
@@ -80,12 +89,30 @@ function createGame (req, res) {
           res.status(500).json({ err })
         })
     })
-    .catch( err => res.status(500).json({ err }))
+    .catch(function (err) {
+      res.status(500).json({ err })
+    })
+}
+
+function createUser (req, res) {
+  const data = {
+    nombre: req.body.nombre,
+    type: req.body.type
+  }
+  const table = 'usuarios'
+
+  projectModelDB.create(data, table)
+    .then(function (data) {
+      res.status(201).json(data)
+    })
+    .catch(function (err) {
+      res.status(500).json({ err })
+    })
 }
 
 function createCategory(req, res) {
   const data = {
-    nombre: req.body.nombre,
+    nombre: req.body.name,
   }
   const table = 'categorias'
 
@@ -143,9 +170,7 @@ function updateGame (req, res) {
 function updateCategory (req, res) {
   const table = 'categorias'
   const id = req.body.id;
-  const data = {nombre: req.body.nombre}
-
-  console.log(data)
+  const data = {nombre: req.body.name};
 
   projectModelDB.update(id, table, data)
       .then(function (data) {
@@ -158,6 +183,27 @@ function updateCategory (req, res) {
       .catch(function (err) {
         res.status(500).json({ err })
       })
+}
+
+function updateUser (req, res) {
+  const table = 'usuarios'
+  const id = req.body.idUsuario
+  const data = {
+    nombre: req.body.nombre,
+    type: req.body.type
+  }
+
+  projectModelDB.update(id, table, data)
+    .then(function (data) {
+      if (data) {
+        res.status(200).json(data)
+      } else {
+        res.status(404).json({ message: `Game #${id} cannot be found` })
+      }
+    })
+    .catch(function (err) {
+      res.status(500).json({ err })
+    })
 }
 
 function updateComentario (req, res) {
@@ -184,10 +230,12 @@ function updateComentario (req, res) {
 export default {
   getAll,
   createGame,
+  createUser,
   createComentario,
   createCategory,
   remove,
   updateGame,
+  updateUser,
   updateCategory,
   updateComentario
 }

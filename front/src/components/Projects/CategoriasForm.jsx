@@ -1,16 +1,21 @@
-import {useEffect, useState} from "react";
-import * as CategoriasService from "../../Services/categorias.service";
+import {useState,useEffect} from "react";
 
 
-function CategoriasForm({onSubmit,buttonText}) {
-
+function CategoriasForm({onSubmit,buttonText,nombre,id}) {
 
     const [name, setName] = useState("");
 
+    useEffect(() => {
+        setName(nombre);
+    }, []);
+
     function handleSubmit(event){
         event.preventDefault();
-
-        onSubmit({name});
+        const categoria = {
+            name: name,
+            id: id
+        }
+        onSubmit(categoria);
     }
 
     function handleName(event){
@@ -21,11 +26,11 @@ function CategoriasForm({onSubmit,buttonText}) {
     return (
         <div>
             <form action="#" onSubmit={handleSubmit}>
-                <label>
+                <label className="form-label secondary-color">
                     Nombre:
-                    <input type="text" onChange={handleName} value={name}/>
+                    <input className="form-control" type="text" onChange={handleName} value={name}/>
                 </label>
-                <button type="submit">{buttonText}</button>
+                <button className="btn btn-success mx-4" type="submit">{buttonText}</button>
             </form>
 
         </div>
@@ -33,7 +38,9 @@ function CategoriasForm({onSubmit,buttonText}) {
 }
 
 CategoriasForm.defaultProps = {
-    buttonText: "Crear categoria"
+    buttonText: "Crear categoria",
+    nombre: '',
+    id: ''
 }
 
 export default CategoriasForm;

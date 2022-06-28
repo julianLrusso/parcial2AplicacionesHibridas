@@ -1,0 +1,35 @@
+.main-background {
+    background-color: #000C36;
+}
+.secondary-background {
+    background-color: #FFDC3D;
+}
+.main-color, a:link {
+    color: #FFDC3D !important;
+}
+.secondary-color {
+    color: #000C36;
+}
+
+a:visited, a:hover, a:active{
+    color: #ffe480 !important;
+}
+
+html, body, #root, .app {
+    height: 100%;
+}
+.app {
+    display: grid;
+    grid-template-rows: 56px 2fr 75px;
+}
+
+.footer {
+    display: flex;
+    height: 75px;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer p {
+    margin-bottom: 0;
+}
