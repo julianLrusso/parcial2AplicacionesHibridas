@@ -3,6 +3,16 @@ async function find(){
     .then(response => response.json());
 }
 
+async function findByID (id, table) {
+    return fetch(`http://localhost:2052/proyect/${table}/${id}`)
+    .then(response => response.json())
+}
+
+async function findCommentsByGame (id) {
+    return fetch(`http://localhost:2052/proyect/comentario/${id}`)
+    .then(response => response.json())
+}
+
 async function create(categoria){
     return fetch('http://localhost:2052/create/categoria', {
         method: 'POST',
@@ -10,6 +20,16 @@ async function create(categoria){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(categoria)
+    }).then(response => response.json());
+}
+
+async function createComentario(data, table){
+    return fetch(`http://localhost:2052/proyect/${table}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
     }).then(response => response.json());
 }
 
@@ -31,7 +51,10 @@ async function doDelete(id){
 
 export {
     find,
+    findCommentsByGame,
+    findByID,
     create,
+    createComentario,
     update,
     doDelete
 }

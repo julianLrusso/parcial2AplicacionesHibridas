@@ -97,6 +97,7 @@ async function update (id, table, data) {
 
 export {
   find,
+  findByID,
   findCommentByGame,
   create,
   deleteOne,

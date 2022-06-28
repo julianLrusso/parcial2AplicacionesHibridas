@@ -4,10 +4,12 @@ import projectControllers from '../controllers/project.controllers.js';
 const route = express.Router();
 
 route.get('/:table', projectControllers.getAll);
+route.get('/proyect/:table/:itemId', projectControllers.getByID);
+route.get('/proyect/comentario/:idJuego', projectControllers.getCommentsByGame);
 // Rutas crear
-route.post('/create/juego', projectControllers.createGame);
-route.post('/create/comentario', projectControllers.createComentario);
-route.post('/create/categoria', projectControllers.createCategory);
+route.post('/proyect/juego', projectControllers.createGame);
+route.post('/proyect/comentario', projectControllers.createComentario);
+route.post('/proyect/categoria', projectControllers.createCategory);
 
 //Ruta eliminar
 route.delete('/remove/:table/:id', projectControllers.remove);

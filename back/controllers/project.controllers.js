@@ -3,7 +3,31 @@ import * as projectModelDB from '../services/project.db.service.js'
 
 function getAll (req, res) {
   const table = req.params.table
-  projectModelDB.find(table)
+  return projectModelDB.find(table)
+    .then(function (data) {
+      res.status(200).json(data)
+    })
+    .catch(function (err) {
+      res.status(404).json({ err })
+    })
+}
+
+function getByID (req, res) {
+  const table = req.params.table
+  const id = req.params.itemId
+  return projectModelDB.findByID(table, id)
+    .then(function (data) {
+      res.status(200).json(data)
+    })
+    .catch(function (err) {
+      res.status(404).json({ err })
+    })
+}
+
+function getCommentsByGame(req, res) {
+  const id = req.params.idJuego
+
+  return projectModelDB.findCommentByGame(id)
     .then(function (data) {
       res.status(200).json(data)
     })
@@ -24,7 +48,7 @@ function createGame (req, res) {
   }
   const table = 'juegos'
 
-  projectModelDB.create(data, table)
+  return projectModelDB.create(data, table)
     .then(function (data) {
       res.status(201).json(data)
     })
@@ -47,46 +71,33 @@ function createComentario (req, res) {
     puntuacion: req.body.puntuacion
   }
   const table = 'comentarios'
+  const tableJ = 'juegos'
 
-  projectModelDB.create(data, table)
-    .then(function (data) {
-      res.status(201).json(data)
-    })
-    .catch(function (err) {
-      res.status(500).json({ err })
-    })
-
-  const params = {
-    juego: {
-      _id: new ObjectId(id)
-    }
-  }
-
-  projectModelDB.find(table, params)
-    .then(function (data) {
-      res.status(201).json(data)
-    })
-    .then(function (data) {
-      let puntos = 0
-      for (let i = 0; i < data.length; i++) {
-        puntos += data[i].puntuacion
-      }
-      const puntosTotal = puntos / data.length
-
-      const puntosData = {
-        puntuacion: puntosTotal
-      }
-
-      projectModelDB.update(id, table, puntosData)
-        .then(function (data) {
-          if (data) {
-            res.status(200).json(data)
-          } else {
-            res.status(404).json({ message: `Game #${id} cannot be found` })
+  return projectModelDB.create(data, table)
+    .then(() => {
+      projectModelDB.findCommentByGame(id)
+        .then((data) => {
+          let puntos = 0
+          for (let i = 0; i < data.length; i++) {
+            puntos += data[i].puntuacion
           }
-        })
-        .catch(function (err) {
+          const puntosTotal = puntos / data.length
+
+          const puntosData = {
+            puntuacion: puntosTotal
+          }
+
+          projectModelDB.update(id, tableJ, puntosData)
+          .then(function (data) {
+            if (data) {
+              res.status(200).json(data)
+            } else {
+              res.status(404).json({ message: `Game #${id} cannot be found` })
+            }
+          })
+          .catch(function (err) {
           res.status(500).json({ err })
+          })
         })
     })
     .catch(function (err) {
@@ -229,6 +240,8 @@ function updateComentario (req, res) {
 
 export default {
   getAll,
+  getByID,
+  getCommentsByGame,
   createGame,
   createUser,
   createComentario,
