@@ -181,7 +181,7 @@ function updateGame (req, res) {
 function updateCategory (req, res) {
   const table = 'categorias'
   const id = req.body.id;
-  const data = {nombre: req.body.name};
+  const data = {nombre: req.body.nombre};
 
   projectModelDB.update(id, table, data)
       .then(function (data) {

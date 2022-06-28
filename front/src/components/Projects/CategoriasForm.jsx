@@ -12,7 +12,7 @@ function CategoriasForm({onSubmit,buttonText,nombre,id}) {
     function handleSubmit(event){
         event.preventDefault();
         const categoria = {
-            name: name,
+            nombre: name,
             id: id
         }
         onSubmit(categoria);

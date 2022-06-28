@@ -12,7 +12,10 @@ function Header() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            <a className="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li className="navbar-nav">
+                            <a className="nav-link active" aria-current="page" href="/login">Login</a>
                         </li>
                     </ul>
                 </div>

@@ -1,5 +1,11 @@
+
 async function find(){
-    return fetch('http://localhost:2052/categorias')
+    console.log(JSON.stringify(localStorage.getItem('token')))
+    return fetch('http://localhost:2052/proyect/categorias', {
+        headers: {
+            'auth-token': localStorage.getItem('token')
+        }
+    })
     .then(response => response.json());
 }
 
@@ -14,10 +20,11 @@ async function findCommentsByGame (id) {
 }
 
 async function create(categoria){
-    return fetch('http://localhost:2052/create/categoria', {
+    return fetch('http://localhost:2052/proyect/categoria', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('token')
         },
         body: JSON.stringify(categoria)
     }).then(response => response.json());
@@ -34,18 +41,20 @@ async function createComentario(data, table){
 }
 
 async function update(categoria){
-    return fetch('http://localhost:2052/update/categoria', {
+    return fetch('http://localhost:2052/proyect/categoria', {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('token')
         },
         body: JSON.stringify(categoria)
     }).then(response => response.json());
 }
 
 async function doDelete(id){
-    return fetch('http://localhost:2052/remove/categorias/'+id, {
+    return fetch('http://localhost:2052/proyect/categorias/'+id, {
         method: 'DELETE',
+        'auth-token': localStorage.getItem('token')
     }).then(response => response.json());
 }
 

@@ -1,22 +1,39 @@
-import React from 'react'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import React, {useEffect} from "react";
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import CategoriasList from "./components/Projects/CategoriasList";
-import Header from "./Pages/Header.jsx";
-import Footer from "./Pages/Footer.jsx";
+import Header from "./Pages/Header";
+import Footer from "./Pages/Footer";
+import Login from "./Pages/Auth/Login";
 import GameView from "./Pages/gameView.jsx";
 import './css/main.css';
 import './css/bootstrap.min.css';
 
 function App() {
+    let navigate = useNavigate();
+
+    useEffect(
+        () => {
+            const token = localStorage.getItem('token');
+            if (!token){
+                navigate('/login', { replace: true });
+            }
+        }
+    , [])
+
+    function onLogin(user, token) {
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('token', token)
+        navigate('/', {replace: true})
+    }
+
     return (
         <div className="app">
             <Header />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/categorias" element={<CategoriasList/>} />    
-                    <Route path="/juegos/:juegoId" element={<GameView/>} />    
-                </Routes>
-            </BrowserRouter>
+            <Routes>
+                <Route path="/" element={<CategoriasList />} />
+                <Route path="/login" element={<Login onLogin={onLogin} />} />
+                <Route path="/juegos/:juegoId" element={<GameView/>} />
+            </Routes>
             <Footer />
         </div>
     )
