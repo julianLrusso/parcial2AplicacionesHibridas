@@ -112,7 +112,7 @@ function createUser (req, res) {
 
 function createCategory(req, res) {
   const data = {
-    nombre: req.body.name,
+    nombre: req.body.nombre
   }
   const table = 'categorias'
 
