@@ -10,8 +10,8 @@ route.all('/proyect/*', authorization);
 // Ruta get
 route.get('/proyect/:table',[], projectControllers.getAll);
 
-route.get('/proyect/:table/:itemId', projectControllers.getByID);
 route.get('/proyect/comentario/:idJuego', projectControllers.getCommentsByGame);
+route.get('/proyect/:table/:itemId', projectControllers.getByID);
 // Rutas crear
 route.post('/proyect/juego', projectControllers.createGame);
 route.post('/proyect/comentario', projectControllers.createComentario);

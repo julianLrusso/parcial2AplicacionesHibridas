@@ -6,13 +6,15 @@ import FormCreateComentario from '../components/Projects/formCreateComentario.js
 function GameView () {
     const {juegoId} = useParams()
     const [juego, setJuego] = useState({})
-    const [comentarios, setComentarios] = useState({})
+    const [comentarios, setComentarios] = useState([])
     const table = "juegos"
+    const token = localStorage.getItem('token')
 
     function saveComentario (comentario) {
+        const userData = JSON.parse(localStorage.getItem('user'))
         const data = {
-            idUsuario: ,
-            nombreUsuario: ,
+            idUsuario: userData._id,
+            nombreUsuario: userData.nombre,
             texto: comentario.texto,
             idJuego: juegoId,
             puntuacion: comentario.puntuacion
@@ -25,12 +27,22 @@ function GameView () {
     }
 
     useEffect ( () => {
+        console.log("stage 1")
         gameServices.findByID(juegoId, table)
           .then( juego => setJuego(juego))
     }, [])
 
+    useEffect ( () => {
+        console.log("stage 2")
+        gameServices.findCommentsByGame(juegoId)
+          .then( juegoComentarios => console.log(juegoComentarios))
+    }, [])
+    
+    /*console.log("comentarios:") 
+    console.log(comentarios)*/
     return (
         <Fragment>
+            {console.log(comentarios)}
             <h2>{juego.nombre}</h2>
             <p>Puntuación: {juego.puntuacion}</p>
             <p>{juego.descripcion}</p>
@@ -42,6 +54,13 @@ function GameView () {
 export default GameView
 
 /*
+            <ul>
+                {comentarios.map((c, i) => {
+                <li key={i}>
+                    <div>Usuario: {c.usuario.nombre}</div>
+                    <p>{c.texto}</p>
+                </li>})}
+            </ul>
 <p>Categoría: {juego.categoria.nombre}</p>
 
 */

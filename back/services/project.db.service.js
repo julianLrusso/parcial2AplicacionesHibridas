@@ -17,18 +17,12 @@ async function find (table) {
 }
 
 async function findByID (table, id) {
-  return client.connect()
-    .then(async function () {
-      console.log('Me pude conectar')
-      const db = client.db('videojuegos')
-      const videojuegos = await db.collection(table).findOne({_id: new ObjectId(id)})
-      client.close()
-      return videojuegos
-    })
-    .catch(function (e) {
-      console.log('No me pude conectar')
-        return e;
-    })
+    await client.connect()
+    console.log('Me pude conectar')
+    const db = client.db('videojuegos')
+    const videojuegos = await db.collection(table).findOne({_id: new ObjectId(id)})
+    await client.close()
+    return videojuegos
 }
 
 async function findCommentByGame (id) {

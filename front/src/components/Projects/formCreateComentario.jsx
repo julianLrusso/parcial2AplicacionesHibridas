@@ -19,20 +19,19 @@ function FormCreateComentario ({onSubmit}) {
     
     return (
         <form onSubmit={handleSubmit}>
-            <div class="mb-3">
-                <label for="Puntuacion" class="form-label">Comentario</label>
-                <select class="form-select" aria-label="Default select example" id="Puntuacion" value={puntuacion} onChange={handlePuntuacion}>
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="4">Three</option>
-                    <option value="5">Three</option>
+            <div className="mb-3">
+                <label htmlFor="Puntuacion" className="form-label">Puntuación</label>
+                <select className="form-select" aria-label="Default select example" id="Puntuacion" value={puntuacion} onChange={handlePuntuacion}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="Comentario" class="form-label">Comentario</label>
-                <textarea class="form-control" id="Comentario" rows="3" value={texto} onChange={handleTexto}></textarea>
+            <div className="mb-3">
+                <label htmlFor="Comentario" className="form-label">Comentario</label>
+                <textarea className="form-control" id="Comentario" rows="3" value={texto} onChange={handleTexto}></textarea>
             </div>
             <button type='submit'>Agregar</button>
         </form>

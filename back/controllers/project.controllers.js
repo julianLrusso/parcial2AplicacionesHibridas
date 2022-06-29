@@ -3,6 +3,7 @@ import * as projectModelDB from '../services/project.db.service.js'
 
 function getAll (req, res) {
   const table = req.params.table
+  console.log(table)
   return projectModelDB.find(table)
     .then(function (data) {
       res.status(200).json(data)
@@ -26,13 +27,14 @@ function getByID (req, res) {
 
 function getCommentsByGame(req, res) {
   const id = req.params.idJuego
-
+  console.log(id)
+  console.log("componente de mierda")
   return projectModelDB.findCommentByGame(id)
     .then(function (data) {
       res.status(200).json(data)
     })
     .catch(function (err) {
-      res.status(404).json({ err })
+      res.status(404).json({ mensaje: 'Este juego aun no tiene comentarios' })
     })
 }
 

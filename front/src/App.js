@@ -5,6 +5,7 @@ import Header from "./Pages/Header";
 import Footer from "./Pages/Footer";
 import Login from "./Pages/Auth/Login";
 import GameView from "./Pages/gameView.jsx";
+import GameCreator from "./Pages/gameCreator.jsx";
 import './css/main.css';
 import './css/bootstrap.min.css';
 
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/" element={<CategoriasList />} />
                 <Route path="/login" element={<Login onLogin={onLogin} />} />
                 <Route path="/juegos/:juegoId" element={<GameView/>} />
+                <Route path="/juego/nuevo" element={<GameCreator/>} />
             </Routes>
             <Footer />
         </div>

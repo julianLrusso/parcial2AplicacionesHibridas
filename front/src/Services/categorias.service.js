@@ -10,13 +10,23 @@ async function find(){
 }
 
 async function findByID (id, table) {
-    return fetch(`http://localhost:2052/proyect/${table}/${id}`)
+    return fetch(`http://localhost:2052/proyect/${table}/${id}`, {
+        headers: {
+            'auth-token': localStorage.getItem('token')
+        }
+    })
     .then(response => response.json())
 }
 
 async function findCommentsByGame (id) {
-    return fetch(`http://localhost:2052/proyect/comentario/${id}`)
+    console.log(id)
+    return fetch(`http://localhost:2052/proyect/comentario/${id}`, {
+        headers: {
+            'auth-token': localStorage.getItem('token')
+        }
+    })
     .then(response => response.json())
+    .then(response => console.log(response))
 }
 
 async function create(categoria){
@@ -34,7 +44,8 @@ async function createComentario(data, table){
     return fetch(`http://localhost:2052/proyect/${table}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('token')
         },
         body: JSON.stringify(data)
     }).then(response => response.json());
