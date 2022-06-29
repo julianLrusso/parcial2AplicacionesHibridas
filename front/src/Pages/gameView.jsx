@@ -35,7 +35,7 @@ function GameView () {
     useEffect ( () => {
         console.log("stage 2")
         gameServices.findCommentsByGame(juegoId)
-          .then( juegoComentarios => console.log(juegoComentarios))
+          .then( response => setComentarios(response))
     }, [])
     
     /*console.log("comentarios:") 
