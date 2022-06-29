@@ -6,7 +6,7 @@ function FormCreateComentario ({onSubmit}) {
 
     function handleSubmit (event) {
         event.preventDefault()
-        onSubmit(puntuacion, texto)
+        onSubmit({puntuacion: puntuacion, texto: texto})
     }
 
     function handlePuntuacion (event) {
