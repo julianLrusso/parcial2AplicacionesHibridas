@@ -32,19 +32,19 @@ function FormCreateGame ({onSubmit}) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div class="mb-3">
-                <label htmlFor="Nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="Nombre" value={nombre} onChange={handleNombre}></input>
+            <div className="mb-3">
+                <label htmlFor="Nombre" className="form-label">Nombre</label>
+                <input type="text" className="form-control" id="Nombre" value={nombre} onChange={handleNombre}></input>
             </div>
-            <div class="mb-3">
-                <label for="Categorias" class="form-label">Categorías</label>
-                <select class="form-select" aria-label="Default select example" id="Categorias" value={categoria} onChange={handleCategoria}>
+            <div className="mb-3">
+                <label htmlFor="Categorias" className="form-label">Categorías</label>
+                <select className="form-select" aria-label="Default select example" id="Categorias" value={categoria} onChange={handleCategoria}>
                     {categoriasList.map((c, i)=><option key={i} value={{id:c._id, nombre: c.nombre}}>{c.nombre}</option> )}
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="Descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="Descripcion" rows="3" value={descripcion} onChange={handleDescripcion}></textarea>
+            <div className="mb-3">
+                <label htmlFor="Descripcion" className="form-label">Descripción</label>
+                <textarea className="form-control" id="Descripcion" rows="3" value={descripcion} onChange={handleDescripcion}></textarea>
             </div>
             <button type='submit'>Agregar</button>
         </form>

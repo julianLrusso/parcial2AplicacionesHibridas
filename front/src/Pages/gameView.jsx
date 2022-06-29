@@ -37,12 +37,9 @@ function GameView () {
         gameServices.findCommentsByGame(juegoId)
           .then( response => setComentarios(response))
     }, [])
-    
-    /*console.log("comentarios:") 
-    console.log(comentarios)*/
+
     return (
         <Fragment>
-            {console.log(comentarios)}
             <h2>{juego.nombre}</h2>
             <p>Puntuación: {juego.puntuacion}</p>
             <p>{juego.descripcion}</p>
@@ -51,16 +48,4 @@ function GameView () {
     )
 }
 
-export default GameView
-
-/*
-            <ul>
-                {comentarios.map((c, i) => {
-                <li key={i}>
-                    <div>Usuario: {c.usuario.nombre}</div>
-                    <p>{c.texto}</p>
-                </li>})}
-            </ul>
-<p>Categoría: {juego.categoria.nombre}</p>
-
-*/
+export default GameView;

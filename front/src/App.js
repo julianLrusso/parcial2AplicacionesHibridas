@@ -1,13 +1,14 @@
 import React, {useEffect} from "react";
 import {Routes, Route, useNavigate} from 'react-router-dom';
-import CategoriasList from "./components/Projects/CategoriasList";
 import Header from "./Pages/Header";
 import Footer from "./Pages/Footer";
 import Login from "./Pages/Auth/Login";
 import GameView from "./Pages/gameView.jsx";
-import GameCreator from "./Pages/gameCreator.jsx";
+import GameList from "./Pages/GameList";
+import GameCreator from "./Pages/gameCreator";
 import './css/main.css';
 import './css/bootstrap.min.css';
+import CategoriasABM from "./Pages/categoriasABM";
 
 function App() {
     let navigate = useNavigate();
@@ -27,14 +28,21 @@ function App() {
         navigate('/', {replace: true})
     }
 
+    function isAdmin(type){
+        if (type !== 'admin'){
+            navigate('/login', { replace: true });
+        }
+    }
+
     return (
         <div className="app">
             <Header />
             <Routes>
-                <Route path="/" element={<CategoriasList />} />
+                <Route path="/" element={<GameList />} />
+                <Route path="/categorias" element={<CategoriasABM requiresAdmin={isAdmin} />} />
                 <Route path="/login" element={<Login onLogin={onLogin} />} />
+                <Route path="/juego/nuevo" element={<GameCreator requiresAdmin={isAdmin}/>} />
                 <Route path="/juegos/:juegoId" element={<GameView/>} />
-                <Route path="/juego/nuevo" element={<GameCreator/>} />
             </Routes>
             <Footer />
         </div>

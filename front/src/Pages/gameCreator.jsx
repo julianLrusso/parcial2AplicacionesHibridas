@@ -3,14 +3,20 @@ import {useParams} from 'react-router-dom'
 import * as gameServices from '../Services/game.service.js'
 import FormCreateGame from '../components/Game/formCreateGame.jsx'
 
-function GameCreator () {
+function GameCreator ({requiresAdmin}) {
 
-    function saveGame (game) {
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user')) || 'user';
+        requiresAdmin(user.type)
+    }, [])
+
+    function saveGame (game, descripcion, categoria) {
+        console.log(game, '-', descripcion, '-', categoria)
         const data = {
-            nombre: game.nombre,
-            descripcion: game.descripcion,
-            idCategoria: game.categoria._id,
-            nombreCategoria: game.categoria.nombre,
+            nombre: game,
+            descripcion: descripcion,
+            idCategoria: categoria._id,
+            nombreCategoria: categoria.nombre,
         }
 
         gameServices.createGame(data)
