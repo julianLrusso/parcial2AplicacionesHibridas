@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react"
 import {useParams} from 'react-router-dom'
-import * as gameServices from '../Services/categorias.service.js'
+import * as gameServices from '../Services/proyect.service.js'
 import FormCreateComentario from '../components/Projects/formCreateComentario.jsx'
 
 function GameView () {

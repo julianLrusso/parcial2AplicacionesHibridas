@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import * as CategoriasService from "../../Services/categorias.service";
+import * as CategoriasService from "../../Services/proyect.service";
 import CategoriasForm from "./CategoriasForm";
 
 
@@ -24,7 +24,7 @@ function CategoriasList() {
     }
 
     function deleteCategoria(id){
-        CategoriasService.doDelete(id)
+        CategoriasService.deleteCategoria(id)
             .then(()=>CategoriasService.find() )
             .then(categorias => setCategorias(categorias))
     }

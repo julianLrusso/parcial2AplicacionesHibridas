@@ -62,7 +62,7 @@ async function update(categoria){
     }).then(response => response.json());
 }
 
-async function doDelete(id){
+async function deleteCategoria(id){
     return fetch('http://localhost:2052/proyect/categorias/'+id, {
         method: 'DELETE',
         'auth-token': localStorage.getItem('token')
@@ -76,5 +76,5 @@ export {
     create,
     createComentario,
     update,
-    doDelete
+    deleteCategoria
 }

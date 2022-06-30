@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import * as categoriaServices from '../../Services/categorias.service.js'
+import * as categoriaServices from '../../Services/proyect.service.js'
 
 function FormCreateGame ({onSubmit}) {
     const [nombre, setNombre] = useState("") 
