@@ -33,7 +33,7 @@ function FormCreateComentario ({onSubmit}) {
                 <label htmlFor="Comentario" className="form-label">Comentario</label>
                 <textarea className="form-control" id="Comentario" rows="3" value={texto} onChange={handleTexto}></textarea>
             </div>
-            <button type='submit'>Agregar</button>
+            <button className="btn btn-success btn-lg w-100" type='submit'>Agregar</button>
         </form>
     )
 }

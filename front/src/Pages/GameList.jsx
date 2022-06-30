@@ -18,7 +18,7 @@ function GameList() {
                 <div className="card-body">
                     <h3 className="main-background p-4 mb-0"><Link to={'/juegos/'+game._id}>{game.nombre}</Link></h3>
                     <div className="secondary-color secondary-background p-3">
-                        <p>{game.descripcion}</p>
+                        <p>{game.categoria.nombre}</p>
                         <p>Puntuación: {game.puntuacion}</p>
                     </div>
                 </div>

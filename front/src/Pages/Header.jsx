@@ -5,7 +5,7 @@ function Header() {
     return (
         <nav className="navbar navbar-expand-lg main-background main-color">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">GameRater</a>
+                <h1 className="h3"><Link className="nav-link" to="/">GameRater</Link></h1>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

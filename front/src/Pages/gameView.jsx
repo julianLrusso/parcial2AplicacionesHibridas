@@ -8,7 +8,6 @@ function GameView () {
     const [juego, setJuego] = useState({})
     const [comentarios, setComentarios] = useState([])
     const table = "juegos"
-    const token = localStorage.getItem('token')
 
     function saveComentario (comentario) {
         const userData = JSON.parse(localStorage.getItem('user'))
@@ -39,12 +38,18 @@ function GameView () {
     }, [])
 
     return (
-        <Fragment>
-            <h2>{juego.nombre}</h2>
-            <p>Puntuación: {juego.puntuacion}</p>
-            <p>{juego.descripcion}</p>
-            <FormCreateComentario onSubmit={saveComentario} />
-        </Fragment>
+        <div className="container">
+            <div className="card mt-4">
+                <div className="card-body">
+                    <div className="d-flex justify-content-between mb-4 p-3 main-color main-background">
+                        <h2>{juego.nombre}</h2>
+                        <p>Puntuación: {juego.puntuacion}</p>
+                    </div>
+                    <p>{juego.descripcion}</p>
+                    <FormCreateComentario onSubmit={saveComentario} />
+                </div>
+            </div>
+        </div>
     )
 }
 
